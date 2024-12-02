@@ -15,12 +15,6 @@ export default {
 				"electric-blue": "#5bc0eb",
 				"warm-yellow": "#ffcf6d",
 				"mint-green": "#72d6c9"
-			},
-			fontFamily: {
-				sans: ["Poppins", "sans-serif"]
-			},
-			maxWidth: {
-				"screen-lg": "1920px"
 			}
 		}
 	},
