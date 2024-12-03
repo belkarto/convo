@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import PropTypes from "prop-types";
 
 function NavItem({ to, icon }) {
 	return (
@@ -18,14 +19,19 @@ function NavItem({ to, icon }) {
 				}`
 			}
 		>
-			{icon}
+			<div className="h-6 w-6 mx-auto">{icon}</div>
 		</NavLink>
 	);
 }
 
+NavItem.propTypes = {
+	to: PropTypes.string.isRequired,
+	icon: PropTypes.element.isRequired
+};
+
 function Navbar() {
 	return (
-		<nav className="bg-deep-black w-16 h-screen flex flex-col items-center py-4">
+		<nav className="bg-deep-black h-screen flex flex-col items-center p-5 w-20">
 			<div className="logo mb-16">
 				<img src="/convo.svg" alt="logo" className="h-10" />
 			</div>

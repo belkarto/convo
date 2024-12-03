@@ -9,6 +9,7 @@ export default {
 				"vibrant-pink": "#ff528b",
 				"soft-pink": "#ffa3c1",
 				"deep-black": "#22283a",
+				"light-black": "#2d3349",
 				"slate-gray": "#6b7280",
 				charcoal: "#3c3f4a",
 				"cool-gray": "#f5f5f5",
