@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import ConverstionsList from "./ConverstionsList";
+import { useEffect, useState } from "react";
+import ConversationsList from "./ConverstionsList";
 import ProfileDetails from "./ProfileDetails";
 import Conversation from "./Conversation";
 
@@ -12,6 +12,7 @@ function Chat() {
 			{
 				id: 1,
 				name: "John Doe",
+				avatar: "/avatar.jpg",
 				status: "online",
 				lastMessage: "heyyy long time no see",
 				isItOwnMessage: false,
@@ -21,6 +22,7 @@ function Chat() {
 			{
 				id: 2,
 				name: "Jane Doe",
+				avatar: "/avatar.jpg",
 				status: "offline",
 				lastMessage: "Hello, how are you?",
 				isItOwnMessage: false,
@@ -30,6 +32,7 @@ function Chat() {
 			{
 				id: 3,
 				name: "John Smith",
+				avatar: "/avatar.jpg",
 				status: "online",
 				lastMessage: "I am ready to go",
 				isItOwnMessage: true,
@@ -39,6 +42,7 @@ function Chat() {
 			{
 				id: 4,
 				name: "Jane Smith",
+				avatar: "/avatar.jpg",
 				status: "offline",
 				lastMessage: "what's up?",
 				isItOwnMessage: false,
@@ -52,7 +56,7 @@ function Chat() {
 
 	return (
 		<div className="flex h-screen">
-			<ConverstionsList
+			<ConversationsList
 				conversations={conversations}
 				setSelectedConversation={setSelectedConversation}
 			/>
