@@ -59,6 +59,7 @@ function Chat() {
 			<ConversationsList
 				conversations={conversations}
 				setSelectedConversation={setSelectedConversation}
+				selectedConversation={selectedConversation}
 			/>
 			<Conversation selectedConversation={selectedConversation} />
 			<ProfileDetails />
