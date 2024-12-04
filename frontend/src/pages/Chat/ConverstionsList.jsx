@@ -13,7 +13,7 @@ function ConversationItem({ chat, handleConversationClick, isSelected }) {
 			onClick={() => handleConversationClick(chat)}
 			className={`
               flex items-center p-4 cursor-pointer 
-              transition-all duration-200  hover:bg-vibrant-pink
+              transition-all duration-200  hover:bg-soft-pink
                 ${isSelected ? "bg-vibrant-pink" : "bg-deep-black"}
             `}
 		>
