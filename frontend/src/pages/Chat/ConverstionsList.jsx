@@ -17,7 +17,6 @@ function ConversationItem({ chat, handleConversationClick, isSelected }) {
                 ${isSelected ? "bg-vibrant-pink" : "bg-deep-black"}
             `}
 		>
-			{/* // : "hover:bg-[#2A2A2A]" */}
 			<div className="relative mr-4">
 				<img
 					src={chat.avatar}
@@ -39,7 +38,7 @@ function ConversationItem({ chat, handleConversationClick, isSelected }) {
 							{chat.name}
 						</h3>
 						{chat.unreadMessages > 0 && (
-							<span className="bg-[#8E2DE2] text-white rounded-full px-2 py-0.5 text-xs">
+							<span className="bg-vibrant-pink  rounded-full px-2 py-0.5 text-xs">
 								{chat.unreadMessages}
 							</span>
 						)}
