@@ -85,9 +85,9 @@ function ConversationsList({
 		setSelectedConversation(chat);
 	};
 
-	useEffect(() => {
-		console.log(selectedConversation);
-	}, [selectedConversation]);
+	// useEffect(() => {
+	// 	console.log(selectedConversation);
+	// }, [selectedConversation]);
 
 	return (
 		<div className=" text-white w-80 h-screen overflow-hidden flex flex-col">
@@ -132,7 +132,7 @@ function ConversationsList({
 }
 
 ConversationsList.propTypes = {
-	conversations: propTypes.object,
+	conversations: propTypes.array,
 	setSelectedConversation: propTypes.func,
 	selectedConversation: propTypes.object
 };
