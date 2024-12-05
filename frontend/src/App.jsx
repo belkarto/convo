@@ -12,7 +12,7 @@ function App() {
 				<Navbar />
 				<div className="flex-1 flex flex-col">
 					<TopBar />
-					<main className="flex-1  overflow-y-auto bg-light-black">
+					<main className="flex-1 overflow-y-hidden bg-light-black">
 						<Routes>
 							<Route path="/" element={<pages.Home />} />
 							<Route path="/chat" element={<pages.Chat />} />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
 	Search as SearchIcon,
 	MoreVert as MoreVertIcon,
@@ -23,12 +23,10 @@ function ConversationItem({ chat, handleConversationClick, isSelected }) {
 					alt={chat.name}
 					className="w-12 h-12 rounded-full object-cover"
 				/>
-				{chat.status === "online" && (
-					<StatusIcon
-						className="absolute bottom-0 right-0 text-green-500 text-sm bg-[#1E1E1E] rounded-full"
-						style={{ fontSize: "16px" }}
-					/>
-				)}
+				<StatusIcon
+					className={`absolute bottom-0 right-0 ${chat.status === "online" ? "text-vibrant-mint-green" : "text-warm-yellow"} text-sm  rounded-full`}
+					style={{ fontSize: "16px" }}
+				/>
 			</div>
 
 			<div className="flex-grow overflow-hidden">
@@ -72,7 +70,8 @@ ConversationItem.propTypes = {
 function ConversationsList({
 	conversations,
 	setSelectedConversation,
-	selectedConversation
+	selectedConversation,
+	setConversations
 }) {
 	const [searchQuery, setSearchQuery] = useState("");
 
@@ -81,16 +80,22 @@ function ConversationsList({
 		console.log("Searching for:", searchQuery);
 	};
 
-	const handleConversationClick = (chat) => {
+	const handleConversationClick = async (chat) => {
 		setSelectedConversation(chat);
+
+		const updatedConversations = conversations.map((conv) =>
+			conv.id === chat.id ? { ...conv, unreadMessages: 0 } : conv
+		);
+		setConversations(updatedConversations);
+
+		// NOTE: Mark the conversation as read
+		// await markConversationAsRead(chat.id);
+
+		console.log("Selected conversation:", chat);
 	};
 
-	// useEffect(() => {
-	// 	console.log(selectedConversation);
-	// }, [selectedConversation]);
-
 	return (
-		<div className=" text-white w-80 h-screen overflow-hidden flex flex-col">
+		<div className=" text-white w-1/3 max-w-80 h-screen overflow-hidden flex flex-col">
 			<div className="p-4 flex justify-between items-center border-b border-[#333]">
 				<h2 className="text-2xl font-semibold text-[#E0E0E0]">Chats</h2>
 				<button className="text-gray-400 hover:text-white transition-colors">
@@ -134,7 +139,8 @@ function ConversationsList({
 ConversationsList.propTypes = {
 	conversations: propTypes.array,
 	setSelectedConversation: propTypes.func,
-	selectedConversation: propTypes.object
+	selectedConversation: propTypes.object,
+	setConversations: propTypes.func
 };
 
 export default ConversationsList;

@@ -6,7 +6,7 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				"vibrant-pink": "#ff528b",
+				"vibrant-pink": "#ff277f",
 				"soft-pink": "#ffa3c1",
 				"deep-black": "#22283a",
 				"light-black": "#2d3349",
@@ -15,7 +15,8 @@ export default {
 				"cool-gray": "#f5f5f5",
 				"electric-blue": "#5bc0eb",
 				"warm-yellow": "#ffcf6d",
-				"mint-green": "#72d6c9"
+				"valiant-poppy": "#ee2e31",
+				"vibrant-mint-green": "#00ffbf"
 			}
 		}
 	},

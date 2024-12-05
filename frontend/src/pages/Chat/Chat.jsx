@@ -6,7 +6,6 @@ import Conversation from "./Conversation";
 function Chat() {
 	const [conversations, setConversations] = useState([]);
 	const [selectedConversation, setSelectedConversation] = useState(null);
-
 	useEffect(() => {
 		const mockData = [
 			{
@@ -60,6 +59,7 @@ function Chat() {
 				conversations={conversations}
 				setSelectedConversation={setSelectedConversation}
 				selectedConversation={selectedConversation}
+				setConversations={setConversations}
 			/>
 			<Conversation selectedConversation={selectedConversation} />
 			<ProfileDetails />
