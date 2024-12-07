@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../constants";
+import { useAuth } from "../constants";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { Avatar } from "@mui/material";
@@ -8,16 +8,17 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import { LogoutOutlined, SettingsOutlined } from "@mui/icons-material";
 
 function TopBar() {
-	const { user } = useContext(AuthContext);
+	const { user } = useAuth();
 	const [isOpenMenu, setIsOpenMenu] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
+	const { logout } = useAuth();
 
 	const handleSearch = (e) => {
 		e.preventDefault();
 		console.log("Searching for:", searchQuery);
 	};
 
-	return (
+	return user.isAuth ? (
 		<div className="bg-deep-black h-16 w-full flex items-center justify-between px-6 shadow-lg">
 			{/* Search Bar */}
 			<form
@@ -79,9 +80,12 @@ function TopBar() {
 								Settings
 							</NavLink>
 							<NavLink
-								to="/logout"
+								to="/auth"
 								className="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200 rounded-b-lg text-red-400 hover:text-red-300"
-								onClick={() => setIsOpenMenu(false)}
+								onClick={() => {
+									logout();
+									setIsOpenMenu(false);
+								}}
 							>
 								<LogoutOutlined className="h-6 w-6 mr-2" />
 								Logout
@@ -91,6 +95,8 @@ function TopBar() {
 				</div>
 			</div>
 		</div>
+	) : (
+		<></>
 	);
 }
 

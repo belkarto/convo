@@ -20,6 +20,7 @@ function App() {
 								path="/friends"
 								element={<pages.Friends />}
 							/>
+							<Route path="/auth" element={<pages.AuthPages />} />
 							{/* <Route path="/settings" element={<pages.Settings />} /> */}
 							{/* <Route path="/profile" element={<pages.Profile />} /> */}
 							{/* <Route path="*" element={<pages.NotFound />} /> */}
