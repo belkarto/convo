@@ -4,6 +4,8 @@ from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from .serializers import CustomTokenObtainPairSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -38,3 +40,7 @@ class SignUpView(CreateAPIView):
             },
             status=status.HTTP_201_CREATED,
         )
+
+
+class LoginView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
