@@ -33,14 +33,53 @@ class SignUpView(CreateAPIView):
         access_token = str(refresh.access_token)
         refresh_token = str(refresh)
 
-        return Response(
+        response = Response(
             {
                 "access_token": access_token,
-                "refresh_token": refresh_token,
+                "user_id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "isAuth": True,
             },
             status=status.HTTP_201_CREATED,
         )
 
+        response.set_cookie(
+            "refresh_token",
+            refresh_token,
+            httponly=True,
+            secure=True,
+            samesite="Lax",
+        )
+        return response
+
 
 class LoginView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
+    # serializer_class = CustomTokenObtainPairSerializer
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        # response.pop("refresh")
+        refresh = response.data.pop("refresh")
+        user = User.objects.get(username=request.data["username"])
+
+        response.data["user_id"] = user.id
+        response.data["username"] = user.username
+        response.data["email"] = user.email
+        response.data["isAuth"] = True
+        response.set_cookie(
+            "refresh_token",
+            refresh,
+            httponly=True,
+            secure=True,
+            samesite="Lax",
+        )
+        return response
+
+
+class CookieTokenRefreshView(TokenRefreshView):
+    def post(self, request, *args, **kwargs):
+        request.data["refresh"] = request.COOKIES.get("refresh_token")
+        response = super().post(request, *args, **kwargs)
+        refresh = response.data.pop("refresh")
+
+        return response

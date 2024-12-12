@@ -8,4 +8,5 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data["user_id"] = self.user.id
         data["username"] = self.user.username
         data["email"] = self.user.email
+        data["isAuth"] = True
         return data
