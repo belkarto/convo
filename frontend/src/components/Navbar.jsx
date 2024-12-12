@@ -3,7 +3,6 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PropTypes from "prop-types";
-import { useAuth } from "../constants";
 
 function NavItem({ to, icon }) {
 	return (
@@ -29,9 +28,7 @@ NavItem.propTypes = {
 };
 
 function Navbar() {
-	const { user } = useAuth();
-
-	return user.isAuth ? (
+	return (
 		<nav className="bg-deep-black h-screen flex flex-col items-center p-5 w-20">
 			<div className="logo mb-16">
 				<img src="/convo.svg" alt="logo" className="h-10" />
@@ -42,8 +39,6 @@ function Navbar() {
 				<NavItem to="/friends" icon={<PeopleAltOutlinedIcon />} />
 			</ul>
 		</nav>
-	) : (
-		<></>
 	);
 }
 

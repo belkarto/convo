@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useAuth } from "../../constants";
+import useAuth from "../../hooks/useAuth";
 
 const AuthPages = () => {
 	const [isLogin, setIsLogin] = useState(true);
 	const [input, setInput] = useState({
-		name: "",
+		username: "",
 		email: "",
 		password: ""
 	});
@@ -17,22 +17,22 @@ const AuthPages = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const { name, email, password } = input;
+		const { username, email, password } = input;
 
-		if (!email || !password || (!isLogin && !name)) {
+		if (!username || !password || (!isLogin && !email)) {
 			console.log("Please fill in all fields");
 			return;
 		}
 
 		if (isLogin) {
 			console.log("Logging in:", { email, password });
-			login(email, password);
+			login(username, password);
 		} else {
-			console.log("Registering:", { name, email, password });
-			register(name, email, password);
+			console.log("Registering:", { username, email, password });
+			register(username, email, password);
 		}
 
-		setInput({ name: "", email: "", password: "" }); // Clear form
+		// setInput({ name: "", email: "", password: "" }); // Clear form
 	};
 
 	return (
@@ -42,42 +42,42 @@ const AuthPages = () => {
 					{isLogin ? "Log In" : "Sign Up"}
 				</h2>
 				<form onSubmit={handleSubmit}>
+					<div className="mb-4">
+						<label
+							htmlFor="username"
+							className="block mb-2 text-soft-pink"
+						>
+							username
+						</label>
+						<input
+							id="username"
+							type="text"
+							name="username"
+							placeholder="Enter your username"
+							className="w-full bg-charcoal text-cool-gray border rounded-lg px-4 py-2 focus:ring focus:ring-electric-blue"
+							onChange={handleInput}
+							value={input.username}
+						/>
+					</div>
 					{!isLogin && (
 						<div className="mb-4">
 							<label
-								htmlFor="Full Name"
+								htmlFor="email"
 								className="block mb-2 text-soft-pink"
 							>
-								Full Name
+								Email
 							</label>
 							<input
-								id="name"
-								type="text"
-								name="name"
-								placeholder="Enter your full name"
+								id="email"
+								type="email"
+								name="email"
+								placeholder="Enter your email"
 								className="w-full bg-charcoal text-cool-gray border rounded-lg px-4 py-2 focus:ring focus:ring-electric-blue"
+								value={input.email}
 								onChange={handleInput}
-								value={input.name}
 							/>
 						</div>
 					)}
-					<div className="mb-4">
-						<label
-							htmlFor="email"
-							className="block mb-2 text-soft-pink"
-						>
-							Email
-						</label>
-						<input
-							id="email"
-							type="email"
-							name="email"
-							placeholder="Enter your email"
-							className="w-full bg-charcoal text-cool-gray border rounded-lg px-4 py-2 focus:ring focus:ring-electric-blue"
-							value={input.email}
-							onChange={handleInput}
-						/>
-					</div>
 					<div className="mb-6">
 						<label
 							htmlFor="password"

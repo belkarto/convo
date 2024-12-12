@@ -1,24 +1,23 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../constants";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { Avatar } from "@mui/material";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import { LogoutOutlined, SettingsOutlined } from "@mui/icons-material";
+import useAuth from "../hooks/useAuth";
 
 function TopBar() {
-	const { user } = useAuth();
+	const { user, logout } = useAuth();
 	const [isOpenMenu, setIsOpenMenu] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
-	const { logout } = useAuth();
 
 	const handleSearch = (e) => {
 		e.preventDefault();
 		console.log("Searching for:", searchQuery);
 	};
 
-	return user.isAuth ? (
+	return (
 		<div className="bg-deep-black h-16 w-full flex items-center justify-between px-6 shadow-lg">
 			{/* Search Bar */}
 			<form
@@ -95,8 +94,6 @@ function TopBar() {
 				</div>
 			</div>
 		</div>
-	) : (
-		<></>
 	);
 }
 
