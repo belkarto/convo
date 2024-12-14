@@ -71,7 +71,6 @@ class LoginView(TokenObtainPairView):
             refresh,
             httponly=True,
             secure=True,
-            samesite="Lax",
         )
         return response
 
@@ -79,6 +78,7 @@ class LoginView(TokenObtainPairView):
 class CookieTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         request.data["refresh"] = request.COOKIES.get("refresh_token")
+        print(request.data["refresh"])
         response = super().post(request, *args, **kwargs)
         refresh = response.data.pop("refresh")
 
