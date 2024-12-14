@@ -98,6 +98,7 @@ const AuthPages = () => {
 					<button
 						type="submit"
 						className="w-full bg-electric-blue text-deep-black font-bold rounded-lg px-4 py-2 hover:bg-vibrant-mint-green transition duration-200"
+						onClick={handleSubmit}
 					>
 						{isLogin ? "Log In" : "Sign Up"}
 					</button>

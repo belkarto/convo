@@ -17,9 +17,16 @@ const AuthProvider = ({ children }) => {
 
 	const login = async (username, password) => {
 		const from = location.state?.from?.pathname || "/";
-		console.log(username + " -- " + password);
 		try {
-			const res = await API.post("login/", { username, password });
+			const res = await API.post(
+				"login/",
+				{ username, password },
+				{
+					withCredentials: true
+				}
+			);
+			console.log(res.data);
+
 			setUser({ ...res.data, avatar: "/avatar.jpg" });
 			navigate(from, { replace: true });
 		} catch (err) {
