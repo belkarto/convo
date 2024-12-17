@@ -9,4 +9,5 @@ class ChatConsumer(JsonWebsocketConsumer):
         pass
 
     def receive_json(self, content, **kwargs):
+        print(self.scope['user'])
         self.send_json(content)

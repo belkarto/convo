@@ -35,7 +35,7 @@ class SignUpView(CreateAPIView):
 
         response = Response(
             {
-                "access_token": access_token,
+                "access": access_token,
                 "user_id": user.id,
                 "username": user.username,
                 "email": user.email,
@@ -55,10 +55,8 @@ class SignUpView(CreateAPIView):
 
 
 class LoginView(TokenObtainPairView):
-    # serializer_class = CustomTokenObtainPairSerializer
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-        # response.pop("refresh")
         refresh = response.data.pop("refresh")
         user = User.objects.get(username=request.data["username"])
 
