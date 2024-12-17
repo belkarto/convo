@@ -47,11 +47,36 @@ const AuthProvider = ({ children }) => {
 
 	const register = async (username, email, password) => {
 		console.log(username + " -- " + email + " -- " + password);
-		// setUser({
-		// 	...user,
-		// 	isAuth: true
-		// });
-		// navigate("/");
+		const from = location.state?.from?.pathname || "/";
+		try {
+			const res = await API.post(
+				"signup/",
+				{ username, email, password },
+				{
+					withCredentials: true
+				}
+			);
+
+			setUser({ ...res.data, avatar: "/avatar.jpg" });
+			navigate(from, { replace: true });
+		} catch (err) {
+			if (!err?.response) {
+				alert("Server is offline");
+				return;
+			} else if (err.response.status === 401) {
+				alert("Wrong credential");
+				return;
+			} else if (err.response?.status === 400) {
+				alert(
+					`Please fill in all fields   ${JSON.stringify(
+						err.response.data
+					)}`
+				);
+				console.log(err.response.data);
+			} else {
+				alert("Login Failer");
+			}
+		}
 	};
 
 	const logout = async () => {
