@@ -4,6 +4,7 @@ import pages from "./pages";
 import PrivateRoute from "./components/PrivateRoute";
 import Layout from "./components/Layout";
 import PresistLogin from "./components/PresistLogin";
+import WebSocketProvider from "./components/webSocketProvider.jsx";
 
 function App() {
 	return (
@@ -11,10 +12,15 @@ function App() {
 			{/* private routes */}
 			<Route element={<PresistLogin />}>
 				<Route element={<PrivateRoute />}>
-					<Route path="/" element={<Layout />}>
-						<Route path="/" element={<pages.Home />} />
-						<Route path="/chat" element={<pages.Chat />} />
-						<Route path="/friends" element={<pages.Friends />} />
+					<Route element={<WebSocketProvider />}>
+						<Route path="/" element={<Layout />}>
+							<Route path="/" element={<pages.Home />} />
+							<Route path="/chat" element={<pages.Chat />} />
+							<Route
+								path="/friends"
+								element={<pages.Friends />}
+							/>
+						</Route>
 					</Route>
 				</Route>
 			</Route>

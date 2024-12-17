@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { AuthContext } from "../constants";
 import propTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
