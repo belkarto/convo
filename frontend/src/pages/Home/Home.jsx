@@ -1,38 +1,59 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import usePrivateAPI from "../../hooks/usePrivateAPI";
-import useWebSocket from "../../hooks/useWebSocket.js";
+import { Box } from "@mui/material";
+import IntroSection from "./IntroSection";
+import RecentChats from "./RecentChats";
+import Feutures from "./Feutures";
+import Activity from "./Activity";
 
-function Home() {
-	const privateAPI = usePrivateAPI();
-	const [something, setSomething] = useState("");
-	const navigate = useNavigate();
-	const location = useLocation();
-	const { socket } = useWebSocket();
-	useEffect(() => {
-		const makeReq = async () => {
-			try {
-				const res = await privateAPI.get("test/");
-				console.log(res.data);
-				setSomething(res.data.this_res);
-			} catch (err) {
-				console.error(err);
-				navigate("/auth", { state: { from: location }, replace: true });
-			}
-		};
-
-		makeReq();
-
-		if (socket) {
-			socket.send(JSON.stringify({ message: "hello from me me" }));
-		}
-	});
+const HomePage = () => {
 	return (
-		<div>
-			Home
-			<p>{something}</p>
-		</div>
-	);
-}
+		<Box
+			sx={{
+				height: "100vh", // Set fixed height
+				overflow: "hidden", // Prevent body scrolling
+				display: "flex",
+				flexDirection: "column",
+				bgcolor: "#22283a"
+			}}
+		>
+			<Box
+				sx={{
+					flexGrow: 1,
+					overflow: "auto", // Enable scrolling for content
+					p: 3
+				}}
+			>
+				<Box
+					sx={{
+						maxWidth: "lg",
+						mx: "auto"
+					}}
+				>
+					{/* Intro Section */}
+					<IntroSection />
+					{/* Quick Actions */}
+					<Box
+						sx={{
+							display: "grid",
+							gridTemplateColumns: {
+								xs: "1fr",
+								md: "1fr 1fr"
+							},
+							gap: 3,
+							mb: 6
+						}}
+					>
+						{/* Recent Chats */}
+						<RecentChats />
+						{/* Activity */}
+						<Activity />
+					</Box>
 
-export default Home;
+					{/* Features */}
+					<Feutures />
+				</Box>
+			</Box>
+		</Box>
+	);
+};
+
+export default HomePage;
