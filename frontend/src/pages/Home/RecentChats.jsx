@@ -30,12 +30,10 @@ const RecentChats = () => {
 	];
 	return (
 		<Paper
+			className="bg-light-black p-3 hover:bg-charcoal"
 			sx={{
-				bgcolor: "#2d3349",
-				p: 3,
 				borderRadius: 4,
 				"&:hover": {
-					bgcolor: "#3c3f4a",
 					transition: "all 0.3s"
 				}
 			}}
