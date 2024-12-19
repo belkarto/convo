@@ -8,7 +8,17 @@ const WebSocketProvider = () => {
 	const { Provider } = SocketContext;
 	const { user } = useAuth();
 	useEffect(() => {
-		const sock = new WebSocket(`ws://localhost:8000/?au=${user?.access}`);
+		const sock = new WebSocket(
+			`ws://localhost:8000/ws/chat/?au=${user?.access}`
+		);
+
+		sock.onopen = () => {
+			console.log("connection established");
+		};
+
+		sock.onclose = (event) => {
+			console.log("connection closed");
+		};
 
 		setSocket(sock);
 
