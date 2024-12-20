@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "chat",
     "chat_ws",
+    "friends"
 ]
 
 
