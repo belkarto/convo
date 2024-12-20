@@ -5,8 +5,8 @@ User = get_user_model()
 
 class ChatRoom(models.Model):
     name = models.CharField(max_length=100, unique=True, default=uuid.uuid4)
-    user_a_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    user_b_id = models.ForeignKey(User, on_delete=models.CASCADE) 
+    user_a = models.ForeignKey(User, on_delete=models.CASCADE, related_name="chat_room_user_a")
+    user_b = models.ForeignKey(User, on_delete=models.CASCADE, related_name="chat_room_user_b") 
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Message(models.Model):
