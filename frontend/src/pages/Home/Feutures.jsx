@@ -43,12 +43,7 @@ const Feutures = () => {
 						p: 3,
 						borderRadius: 4,
 						textAlign: "center",
-						height: "100%",
-						"&:hover": {
-							bgcolor: "#3c3f4a",
-							transform: "translateY(-4px)",
-							transition: "all 0.3s"
-						}
+						height: "100%"
 					}}
 				>
 					<Box

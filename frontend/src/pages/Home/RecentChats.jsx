@@ -30,8 +30,9 @@ const RecentChats = () => {
 	];
 	return (
 		<Paper
-			className="bg-light-black p-3 hover:bg-charcoal"
 			sx={{
+				p: 3,
+				bgcolor: "#2d3349",
 				borderRadius: 4,
 				"&:hover": {
 					transition: "all 0.3s"
@@ -86,7 +87,14 @@ const RecentChats = () => {
 									{chat.message}
 								</Typography>
 							</Box>
-							<Box sx={{ textAlign: "right" }}>
+							<Stack
+								direction="column"
+								alignItems="flex-end"
+								spacing={2}
+								sx={{
+									minWidth: "fit-content"
+								}}
+							>
 								<Typography
 									variant="caption"
 									sx={{ color: "#6b7280" }}
@@ -104,7 +112,7 @@ const RecentChats = () => {
 										}}
 									/>
 								)}
-							</Box>
+							</Stack>{" "}
 						</Stack>
 					</Paper>
 				))}
