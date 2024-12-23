@@ -8,5 +8,5 @@ from rest_framework.views import APIView
 
 class testView(APIView):
     def get(self, request, *args, **kwargs):
-        res = Response({"this_res": "this is respone amazing"})
+        res = Response({"test": "test" , "isTest": True})
         return res
