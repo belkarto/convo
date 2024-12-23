@@ -3,7 +3,16 @@ from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-# Create your views here.
+
+
+
+# TODO:
+# all_conversations view
+
+# TODO:
+# pagination view for conversation give 30 message each time
+
+
 
 
 class testView(APIView):

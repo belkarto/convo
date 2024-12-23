@@ -17,8 +17,17 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from .auth_views import SignUpView, LoginView, CookieTokenRefreshView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("chat.urls")),
+    # Auth
+    path("api/signup/", SignUpView.as_view(), name="signup"),
+    path("api/login/", LoginView.as_view(), name="get_token"),
+    path("api/refresh/", CookieTokenRefreshView.as_view(), name="refresh_token"),
+
+    # API
+    path("api/chat/", include("chat.urls")),
+    path("api/friends/", include("friends.urls")),
+
 ]
