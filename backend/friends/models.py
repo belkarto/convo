@@ -22,10 +22,21 @@ class Friendship(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ('sender', 'receiver')
+        unique_together = (
+            ('sender', 'receiver'),
+            ( 'receiver','sender')
+        )
 
     def __str__(self):
         return f"Request from {self.sender} to {self.receiver} ({self.status})"
+
+    def accept_friend(self):
+        self.status = 'accepted'
+        self.save()
+    
+    def reject_friend(self):
+        self.status = 'rejected'
+        self.save()
 
 class Block(models.Model):
     blocker = models.ForeignKey(User, related_name='blocker', on_delete=models.CASCADE)

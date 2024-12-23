@@ -1,8 +1,11 @@
+import { useEffect } from "react";
 import { Box, Typography, Button, Paper, Stack, Avatar } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { getInitials, getStatusColor } from "./utils";
+import usePrivateAPI from "../../hooks/usePrivateAPI";
 
 const AllFriends = () => {
+	const privateAPI = usePrivateAPI();
 	const friendsList = [
 		{
 			id: 1,
@@ -20,6 +23,15 @@ const AllFriends = () => {
 			lastSeen: "5 minutes ago"
 		}
 	];
+
+	useEffect(() => {
+		async function fetchdata() {
+			const res = await privateAPI("friends/");
+			console.log(res.data);
+		}
+
+		fetchdata();
+	});
 
 	return (
 		<Paper sx={{ bgcolor: "#2d3349", borderRadius: 3, p: 2 }}>
