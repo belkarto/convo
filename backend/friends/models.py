@@ -5,10 +5,10 @@ User = get_user_model()
 
 class Friendship(models.Model):
     FRIENDSHIP_CHOICES = [
-            ('pending', 'Pending'),
-            ('accepted', 'Accepted'),
-            ('rejected', 'Rejected'),
-            ('blocked', 'Blocked')
+            ('PEN', 'Pending'),
+            ('ACC', 'Accepted'),
+            ('REJ', 'Rejected'),
+            ('BLK', 'Blocked')
             ]
 
     sender = models.ForeignKey(User, related_name='sent_requests', on_delete=models.CASCADE)
