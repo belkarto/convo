@@ -9,16 +9,36 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { getInitials } from "./utils";
+import { useEffect, useState } from "react";
+import { FRIEND_REQUESTS } from "../../constants";
+import usePrivateAPI from "../../hooks/usePrivateAPI";
 
 const Requests = () => {
-	const friendRequests = [
-		{ id: 1, name: "Emma Wilson", mutualFriends: 3 },
-		{ id: 2, name: "Mike Thompson", mutualFriends: 5 },
-		{ id: 3, name: "Lisa Anderson", mutualFriends: 2 }
-	];
+	const privateAPI = usePrivateAPI();
+	const [friendRequests, setFriendRequests] = useState([]);
+
+	useEffect(() => {
+		async function fetchRequests() {
+			const res = await privateAPI(FRIEND_REQUESTS);
+			console.log(res.data);
+			setFriendRequests(res.data);
+		}
+
+		fetchRequests();
+
+		return () => {};
+	}, [privateAPI]);
 
 	return (
-		<Paper sx={{ bgcolor: "#2d3349", borderRadius: 3, p: 2 }}>
+		<Paper
+			sx={{
+				bgcolor: "#2d3349",
+				borderRadius: 3,
+				p: 2,
+				overflow: "auto"
+			}}
+			className="h-screen"
+		>
 			<Stack spacing={2}>
 				{friendRequests.map((request) => (
 					<Paper

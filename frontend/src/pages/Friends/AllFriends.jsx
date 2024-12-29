@@ -1,40 +1,46 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, Typography, Button, Paper, Stack, Avatar } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { getInitials, getStatusColor } from "./utils";
 import usePrivateAPI from "../../hooks/usePrivateAPI";
+import { ALL_FRIENDS } from "../../constants";
 
-const AllFriends = () => {
+const AllFriends = ({ searchQuery }) => {
 	const privateAPI = usePrivateAPI();
-	const friendsList = [
-		{
-			id: 1,
-			name: "Sarah Connor",
-			status: "Online",
-			lastSeen: "Just now",
-			avatar: "avatar.jpg"
-		},
-		{ id: 2, name: "John Doe", status: "Offline", lastSeen: "2 hours ago" },
-		{ id: 3, name: "Alice Smith", status: "Online", lastSeen: "Just now" },
-		{
-			id: 4,
-			name: "Bob Johnson",
-			status: "Away",
-			lastSeen: "5 minutes ago"
-		}
-	];
+	const [friendsList, setFriendsList] = useState([]);
+	const [apiFriendsList, setApiFriendsList] = useState([]);
 
 	useEffect(() => {
-		async function fetchdata() {
-			const res = await privateAPI("friends/");
+		async function fetchFriends() {
+			const res = await privateAPI(ALL_FRIENDS);
 			console.log(res.data);
+			setApiFriendsList(res.data);
+			setFriendsList(res.data);
 		}
 
-		fetchdata();
-	});
+		fetchFriends();
+		return () => {};
+	}, [privateAPI]);
+
+	useEffect(() => {
+		console.log("Search query changed to: ", searchQuery);
+		// Filter the friends list based on the search query
+		const filteredFriends = apiFriendsList.filter((friend) =>
+			friend.name.toLowerCase().includes(searchQuery.toLowerCase())
+		);
+		setFriendsList(filteredFriends);
+	}, [searchQuery, apiFriendsList]);
 
 	return (
-		<Paper sx={{ bgcolor: "#2d3349", borderRadius: 3, p: 2 }}>
+		<Paper
+			sx={{
+				bgcolor: "#2d3349",
+				borderRadius: 3,
+				p: 2,
+				overflow: "auto"
+			}}
+			className="h-screen"
+		>
 			<Stack spacing={2}>
 				{friendsList.map((friend) => (
 					<Paper

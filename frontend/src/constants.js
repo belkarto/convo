@@ -8,3 +8,8 @@ export const REFRESH_TOKEN = "refresh";
 
 //endpoints
 export const API_ENDPOINT = "http://localhost:8000/api";
+
+export const ALL_FRIENDS = "friends/";
+export const FRIEND_REQUESTS = "friends/requests/";
+export const FRIEND_SEARCH = "friends/search/";
+export const FRIEND_SUGGESTIONS = "friends/suggestions/";

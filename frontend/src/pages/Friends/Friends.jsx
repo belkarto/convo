@@ -93,11 +93,11 @@ const FriendsPage = () => {
 				</Paper>
 
 				{/* Content Sections */}
-				{activeTab === 0 && <AllFriends />}
+				{activeTab === 0 && <AllFriends searchQuery={searchQuery} />}
 
-				{activeTab === 1 && <Requests />}
+				{activeTab === 1 && <Requests searchQuery={searchQuery} />}
 
-				{activeTab === 2 && <AddFriend />}
+				{activeTab === 2 && <AddFriend searchQuery={searchQuery} />}
 			</Box>
 		</Box>
 	);
