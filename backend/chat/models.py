@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 import uuid
 User = get_user_model()
 
+
+
 class ChatRoom(models.Model):
     name = models.CharField(max_length=100, unique=True, default=uuid.uuid4)
     user_a = models.ForeignKey(User, on_delete=models.CASCADE, related_name="chat_room_user_a")
@@ -57,7 +59,7 @@ class UserStatus(models.Model):
         ('busy', 'Busy'),
     ]
 
-    user = models.OneToOneField(User, related_name='status', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='user_status', on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='offline')
     last_seen = models.DateTimeField(auto_now=True)
 

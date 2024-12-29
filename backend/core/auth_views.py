@@ -1,10 +1,11 @@
 from rest_framework.generics import CreateAPIView
-from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from chat.models import UserStatus
+from chat.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,6 +33,8 @@ class SignUpView(CreateAPIView):
         access_token = str(refresh.access_token)
         refresh_token = str(refresh)
 
+        user_status = UserStatus.objects.create(user=user)
+
         response = Response(
             {
                 "access": access_token,
@@ -39,6 +42,7 @@ class SignUpView(CreateAPIView):
                 "username": user.username,
                 "email": user.email,
                 "isAuth": True,
+                "status": user_status.status,
             },
             status=status.HTTP_201_CREATED,
         )
@@ -63,6 +67,7 @@ class LoginView(TokenObtainPairView):
         response.data["username"] = user.username
         response.data["email"] = user.email
         response.data["isAuth"] = True
+        response.data["status"] = user.user_status.status
         response.set_cookie(
             "refresh_token",
             refresh,
