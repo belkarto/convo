@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AuthContext } from "../constants";
+import { AuthContext, LOGIN, SIGNUP } from "../constants";
 import propTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
 import API from "../API";
@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
 		const from = location.state?.from?.pathname || "/";
 		try {
 			const res = await API.post(
-				"login/",
+				LOGIN,
 				{ username, password },
 				{
 					withCredentials: true
@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
 		const from = location.state?.from?.pathname || "/";
 		try {
 			const res = await API.post(
-				"signup/",
+				SIGNUP,
 				{ username, email, password },
 				{
 					withCredentials: true

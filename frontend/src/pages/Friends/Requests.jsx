@@ -17,6 +17,36 @@ const Requests = () => {
 	const privateAPI = usePrivateAPI();
 	const [friendRequests, setFriendRequests] = useState([]);
 
+	const removeFromList = (id) => {
+		console.log(id);
+		setFriendRequests(
+			friendRequests.filter((request) => request.id !== id)
+		);
+	};
+	const acceptRequest = async (url, id) => {
+		try {
+			const res = await privateAPI.put(url);
+			if (res.data.success) {
+				removeFromList(id);
+			}
+			console.log("reeeees", res.data);
+		} catch (error) {
+			// do nothing
+		}
+	};
+
+	const rejectRequest = async (url, id) => {
+		try {
+			const res = await privateAPI.put(url);
+			if (res.data.success) {
+				removeFromList(id);
+			}
+			console.log(res.data);
+		} catch (error) {
+			// do nothing
+		}
+	};
+
 	useEffect(() => {
 		async function fetchRequests() {
 			const res = await privateAPI(FRIEND_REQUESTS);
@@ -77,12 +107,6 @@ const Requests = () => {
 									>
 										{request.name}
 									</Typography>
-									<Typography
-										variant="body2"
-										sx={{ color: "#6b7280" }}
-									>
-										{request.mutualFriends} mutual friends
-									</Typography>
 								</Box>
 							</Stack>
 							<Stack direction="row" spacing={1}>
@@ -93,6 +117,12 @@ const Requests = () => {
 											bgcolor: "rgba(0, 255, 191, 0.1)"
 										}
 									}}
+									onClick={async () =>
+										await acceptRequest(
+											request.acceptRequest,
+											request.id
+										)
+									}
 								>
 									<CheckIcon />
 								</IconButton>
@@ -103,6 +133,12 @@ const Requests = () => {
 											bgcolor: "rgba(255, 39, 127, 0.1)"
 										}
 									}}
+									onClick={() =>
+										rejectRequest(
+											request.rejectRequest,
+											request.id
+										)
+									}
 								>
 									<CloseIcon />
 								</IconButton>

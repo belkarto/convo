@@ -2,10 +2,13 @@ import { PrivateAPI } from "../API";
 import { useEffect } from "react";
 import useRefreshToken from "./useRefreshToken";
 import useAuth from "./useAuth";
+import { useNavigate } from "react-router-dom";
 
 const usePrivateAPI = () => {
 	const refresh = useRefreshToken();
 	const { user } = useAuth();
+	const navigate = useNavigate();
+	const location = window.location.pathname;
 
 	useEffect(() => {
 		const reqInterceptor = PrivateAPI.interceptors.request.use(
@@ -30,8 +33,16 @@ const usePrivateAPI = () => {
 				const originalRequest = error?.config;
 				if (error.response.status === 401 && !originalRequest._retry) {
 					originalRequest._retry = true;
-					console.log("Refreshing token...");
-					const token = await refresh();
+					const { token, resStatus } = await refresh();
+					console.log("Refresh token response:", token, resStatus);
+					if (resStatus !== 200) {
+						// <Navigate to="/auth" state={{ from: location }} replace />
+						navigate(
+							"/auth",
+							{ replace: true },
+							{ state: { from: location } }
+						);
+					}
 					originalRequest.headers.Authorization = `Bearer ${token}`;
 					return PrivateAPI(originalRequest);
 				}

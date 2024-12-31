@@ -5,6 +5,15 @@ const API = axios.create({
 	baseURL: API_ENDPOINT
 });
 
+// API.interceptors.response.use(
+// 	(response) => {
+// 		return response;
+// 	},
+// 	(error) => {
+// 		return Promise.reject(error);
+// 	}
+// );
+
 export const PrivateAPI = axios.create({
 	baseURL: API_ENDPOINT,
 	headers: {

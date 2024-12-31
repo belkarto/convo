@@ -4,42 +4,39 @@ import { getInitials } from "./utils";
 import { useEffect, useState } from "react";
 import usePrivateAPI from "../../hooks/usePrivateAPI";
 import { FRIEND_SEARCH, FRIEND_SUGGESTIONS } from "../../constants";
+import useDebounce from "../../hooks/useDebounce";
 
 const AddFriend = ({ searchQuery }) => {
-	const [suggestedFriends, setSuggestedFriends] = useState([]);
+	const [listUsers, setListUsers] = useState([]);
 	const privateAPI = usePrivateAPI();
-	// const suggestedFriends = [
-	// 	{ id: 1, name: "David Miller", mutualFriends: 8 },
-	// 	{ id: 2, name: "Sophie Brown", mutualFriends: 4 },
-	// 	{ id: 3, name: "James Wilson", mutualFriends: 6 }
-	// ];
+	const debouncedQuery = useDebounce(searchQuery, 1000);
 
 	useEffect(() => {
 		const fetchSuggestedFriends = async () => {
-			const response = await privateAPI.get(FRIEND_SUGGESTIONS, {
-				params: {
-					username: searchQuery
-				}
-			});
-			console.log(response.data);
+			try {
+				const response = await privateAPI.get(FRIEND_SUGGESTIONS);
+				setListUsers(response.data);
+			} catch (error) {
+				console.error("Error fetching suggestions:", error);
+			}
 		};
 
-		fetchSuggestedFriends();
-	}, [searchQuery]);
-
-	useEffect(() => {
 		const fetchUsers = async () => {
-			if (!searchQuery) return;
-			const response = await privateAPI.get(FRIEND_SEARCH, {
-				params: {
-					username: searchQuery
-				}
-			});
-			console.log(response.data);
+			try {
+				if (!debouncedQuery) return;
+				const response = await privateAPI.get(FRIEND_SEARCH, {
+					params: { username: debouncedQuery }
+				});
+				setListUsers(response.data);
+			} catch (error) {
+				console.error("Error fetching users:", error);
+			}
 		};
 
-		fetchUsers();
-	}, [searchQuery]);
+		// Fetch based on debounced query
+		if (debouncedQuery) fetchUsers();
+		else fetchSuggestedFriends();
+	}, [debouncedQuery, privateAPI]);
 	return (
 		<Paper
 			sx={{
@@ -54,7 +51,7 @@ const AddFriend = ({ searchQuery }) => {
 				Suggested Friends
 			</Typography>
 			<Stack spacing={2}>
-				{suggestedFriends.map((suggestion) => (
+				{listUsers.map((suggestion) => (
 					<Paper
 						key={suggestion.id}
 						sx={{
@@ -90,13 +87,6 @@ const AddFriend = ({ searchQuery }) => {
 										}}
 									>
 										{suggestion.name}
-									</Typography>
-									<Typography
-										variant="body2"
-										sx={{ color: "#6b7280" }}
-									>
-										{suggestion.mutualFriends} mutual
-										friends
 									</Typography>
 								</Box>
 							</Stack>
