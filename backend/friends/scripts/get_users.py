@@ -3,7 +3,6 @@ from django.db import connection
 from pprint import pprint
 
 
-
 def run():
     """
     get all users

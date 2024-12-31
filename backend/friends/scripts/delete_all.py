@@ -8,7 +8,7 @@ def run():
     # from friends.models import Friendship
     # Friendship.objects.all().delete()
     # print("All friendships deleted")
-    
+
     print("Deleting all users")
     user = get_user_model()
     count = user.objects.all().delete()

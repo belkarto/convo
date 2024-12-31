@@ -25,9 +25,7 @@ urlpatterns = [
     path("api/signup/", SignUpView.as_view(), name="signup"),
     path("api/login/", LoginView.as_view(), name="get_token"),
     path("api/refresh/", CookieTokenRefreshView.as_view(), name="refresh_token"),
-
     # API
     path("api/chat/", include("chat.urls")),
     path("api/friends/", include("friends.urls")),
-
 ]
