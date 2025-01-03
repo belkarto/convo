@@ -14,7 +14,10 @@ export const SIGNUP = "api/signup/";
 export const LOGOUT = "api/logout/";
 export const REFRESH = "api/refresh/";
 
+// friends endpoints
 export const ALL_FRIENDS = "api/friends/";
 export const FRIEND_REQUESTS = "api/friends/requests/";
 export const FRIEND_SEARCH = "api/friends/search/";
 export const FRIEND_SUGGESTIONS = "api/friends/suggestions/";
+
+// chat endpoints
